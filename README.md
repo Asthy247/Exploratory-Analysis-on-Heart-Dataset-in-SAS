@@ -12,6 +12,7 @@ This project is ideal for showcasing proficiency in Base SAS programming, data m
 
 **Description**: This dataset contains health-related information, often used in SAS examples. It includes variables such as AgeAtStart, Sex, Weight, Height, Cholesterol, Systolic and Diastolic blood pressure, and Smoking_Status. It provides a good foundation for exploring health trends and relationships.
 
+
 # Objectives
 The primary objectives of this project are:
 
@@ -29,7 +30,9 @@ The primary objectives of this project are:
 
 **Code Organization & Export:** Demonstrate clear, commented SAS code and export the cleaned data for potential further use.
 
+
 # Code Walkthrough (heart_descriptives.sas)
+
 **The SAS script is organized into logical sections:**
 
 
@@ -39,15 +42,20 @@ The primary objectives of this project are:
 
 **2. Initial Inspection**
 **PROC CONTENTS:** Provides a detailed overview of work.heart_raw's structure, variable types, lengths, and labels.
+
 <img width="1023" height="650" alt="image" src="https://github.com/user-attachments/assets/dc1f4bbe-1554-4e55-a777-afa9e3a29398" />
 <img width="446" height="444" alt="image" src="https://github.com/user-attachments/assets/751afda9-be38-4fde-907a-7065b2931a43" />
 
+
 **PROC FREQ with NLEVELS:** Scans all variables for missing values and counts unique levels, helping to identify data quality issues like unexpected values or high rates of missingness.
+
 <img width="553" height="602" alt="image" src="https://github.com/user-attachments/assets/97752aff-92af-4cd9-94f8-fdd82ef9fe16" />
 
 
+
 **3. Data Cleaning & Feature Engineering (DATA step)****
-**Filtering: **The DATA step creates two new datasets: work.heart_clean (for records meeting criteria) and work.heart_excluded (for records that are filtered out).
+
+**Filtering**:The DATA step creates two new datasets: work.heart_clean (for records meeting criteria) and work.heart_excluded (for records that are filtered out).
 
 **Adult Filter**: Excludes individuals under 18 years old from heart_clean.
 
@@ -70,12 +78,13 @@ The primary objectives of this project are:
 **5. Visualizations (PROC SGPLOT)**
 **BMI by Sex**: A VBOX plot (boxplot) visualizes the distribution of BMI across male and female participants, allowing for easy comparison of central tendency, spread, and potential outliers.
 
+
 **Systolic vs Diastolic (colored by BP category)**: A SCATTER plot shows the relationship between systolic and diastolic blood pressure, with points colored by the derived bp_cat variable. Reference lines are added to indicate the thresholds for blood pressure categories, providing visual context to the categorizations.
 
-# Key Findings & Actual Results**
+# Key Findings & Actual Results
 Upon running this script, the following observations and results were obtained:
 
-**Initial Inspection (work.heart_raw):**
+# Initial Inspection (work.heart_raw)
 
 The dataset contained 5209 observations and 17 variables.
 
@@ -89,21 +98,24 @@ The dataset contained 5209 observations and 17 variables.
 
 **Other variables like AgeAtStart, Height, Diastolic, Systolic, and MRW**** also had varying numbers of missing values.
 
-**Sex and BP_Status** categories were clean. Smoking_Status had a blank category for missing values.
+**Sex and BP_Status** categories were clean. 
 
-**Cleaning Impact (work.heart_clean vs. work.heart_raw):**
+**Smoking_Status** had a blank category for missing values.
 
-The filtering rules (Adult filter and completeness rule for vital signs) did not result in any rows being excluded from the work.heart_clean dataset. All 5209 original observations were retained, indicating they met the defined criteria.
+# Cleaning Impact (work.heart_clean vs. work.heart_raw)
+
+The filtering rules (Adult filter and completeness rule for vital signs) did not result in any rows being excluded from the work.heart_clean dataset. 
+All 5209 original observations were retained, indicating they met the defined criteria.
 
 The DATA step successfully imputed missing Smoking_Status values to **'UNKNOWN'** and standardized casing for categorical variables.
 
 **Derived Fields:**
 
-A new numerical variable, bmi, was successfully calculated.
+A new numerical variable,**bmi**, was successfully calculated.
 
-A new character variable, bp_cat, was successfully created, categorizing blood pressure into "Normal", "Elevat" (Elevated), and "Stage" (combining Stage 1 and Stage 2 based on the data's distribution relative to the thresholds).
+A new character variable, **bp_cat**, was successfully created, categorizing blood pressure into "**Normal**", "**Elevat**" (Elevated), and "**Stage**" (combining Stage 1 and Stage 2 based on the data's distribution relative to the thresholds).
 
-**Descriptive Statistics (work.heart_clean):**
+# Descriptive Statistics (work.heart_clean)
 
 **Overall Numerical Summaries:**
 
@@ -115,7 +127,7 @@ A new character variable, bp_cat, was successfully created, categorizing blood p
 
 **bmi**: **Mean** ~25.59 (N=5203, as it depends on Weight/Height).
 
-**Segmented by Sex:**
+# Segmented by Sex
 
 **Female (N=2873):** **Mean AgeAtStart** ~44.05, **Weight** ~141.39, **Height** ~62.57, **bmi** ~25.42, **Systolic** ~136.89, **Diastolic** ~84.65, **Cholesterol** ~228.54.
 
@@ -123,7 +135,7 @@ A new character variable, bp_cat, was successfully created, categorizing blood p
 
 **Observation**: Males generally show higher average Weight, Height, Systolic, and Diastolic blood pressure compared to females, while AgeAtStart, bmi, and Cholesterol averages are relatively similar between sexes.
 
-**Distribution of Blood-Pressure Category (bp_cat):**
+# Distribution of Blood-Pressure Category (bp_cat)
 
 **Elevat**: 437
 
@@ -168,27 +180,27 @@ The large cluster of red circles (spreading across higher systolic and diastolic
 # Recommendations:
 Based on the descriptive analysis of the SASHELP.HEART dataset, several actionable recommendations can be made:
 
-Investigate "Stage" Blood Pressure Category: Given that the majority of individuals (3973 out of 5209) fall into the "Stage" blood pressure category, further investigation is warranted. This could involve:
+**Investigate "Stage" Blood Pressure Category**: Given that the majority of individuals (3973 out of 5209) fall into the "Stage" blood pressure category, further investigation is warranted. This could involve:
 
-Subgroup Analysis: Deep-diving into the characteristics (age, smoking status, cholesterol levels) of individuals in the "Stage" category to identify specific risk factors or commonalities.
+**Subgroup Analysis**: Deep-diving into the characteristics (age, smoking status, cholesterol levels) of individuals in the "Stage" category to identify specific risk factors or commonalities.
 
-Targeted Interventions: If this represents a real-world population, these findings highlight a significant public health concern, suggesting a need for targeted health programs or interventions aimed at managing and reducing high blood pressure.
+**Targeted Interventions:** If this represents a real-world population, these findings highlight a significant public health concern, suggesting a need for targeted health programs or interventions aimed at managing and reducing high blood pressure.
 
-Address Missing Data for Cholesterol and Weight/Height:
+**Address Missing Data for Cholesterol and Weight/Height:**
 
 While the current analysis proceeded by keeping observations with some missing data, the presence of 152 missing Cholesterol values and 6 missing Weight/Height values (which impacts bmi calculation) suggests potential data quality issues.
 
-Data Collection Improvement: Recommend reviewing data collection processes to minimize future missingness for these critical variables.
+**Data Collection Improvement:** Recommend reviewing data collection processes to minimize future missingness for these critical variables.
 
-Imputation Strategies: For future, more advanced analyses (e.g., predictive modeling), consider implementing imputation techniques (e.g., mean imputation, regression imputation) for missing Cholesterol, Weight, and Height values to retain more observations and potentially improve model accuracy.
+**Imputation Strategies:** For future, more advanced analyses (e.g., predictive modeling), consider implementing imputation techniques (e.g., mean imputation, regression imputation) for missing Cholesterol, Weight, and Height values to retain more observations and potentially improve model accuracy.
 
-Explore BMI Outliers: The visualizations (boxplots) indicated the presence of outliers in BMI for both sexes.
+**Explore BMI Outliers:** The visualizations (boxplots) indicated the presence of outliers in BMI for both sexes.
 
-Outlier Analysis: Conduct a deeper analysis of these outlier individuals to understand if they represent data entry errors, extreme but valid cases, or specific subgroups with unique characteristics. This can inform whether these outliers should be treated specially in future modeling.
+**Outlier Analysis**: Conduct a deeper analysis of these outlier individuals to understand if they represent data entry errors, extreme but valid cases, or specific subgroups with unique characteristics. This can inform whether these outliers should be treated specially in future modeling.
 
-Consider Sex-Specific Health Programs: The descriptive statistics showed notable differences in average Weight, Height, Systolic, and Diastolic blood pressure between males and females.
+**Consider Sex-Specific Health Programs:** The descriptive statistics showed notable differences in average Weight, Height, Systolic, and Diastolic blood pressure between males and females.
 
-Tailored Approaches: For health programs or clinical guidelines, these differences suggest that sex-specific considerations or tailored approaches might be beneficial rather than a one-size-fits-all strategy.
+**Tailored Approaches:** For health programs or clinical guidelines, these differences suggest that sex-specific considerations or tailored approaches might be beneficial rather than a one-size-fits-all strategy.
 
 # Conclusion:
 This "Heart Health Analysis" project successfully demonstrates a comprehensive data analysis workflow in SAS Studio. From safely copying raw data and performing initial inspections, the script effectively applies rule-based data cleaning and feature engineering to create a refined dataset. The subsequent descriptive statistics provide valuable insights into the demographic and health characteristics of the population, highlighting key trends and distributions, such as the high prevalence of individuals in the "Stage" blood pressure category. Finally, the inclusion of PROC SGPLOT visualizations effectively communicates complex relationships, such as BMI distribution by sex and the categorization of blood pressure.
